@@ -1,6 +1,7 @@
 package com.sid.filemngt.service;
 
 import com.sid.filemngt.entities.Attachment;
+import com.sid.filemngt.model.NewDlModel;
 import com.sid.filemngt.repository.AttachmentRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -15,25 +16,25 @@ public class AttachmentServiceImpl implements AttachmentService{
         this.attachmentRepository = attachmentRepository;
     }
 
-    @Override
-    public Attachment saveAttachment(MultipartFile file) throws Exception {
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        try{
-            if(fileName.contains("..")){
-                throw new Exception("Filename contains invalid path sequence"+fileName);
+//    @Override
+//    public Attachment getAttachment(String fileId) throws Exception {
+//        return attachmentRepository.findById(fileId).orElseThrow(()->new Exception("File not found with ID: "+ fileId));
+//    }
 
-            }
-            Attachment attachment = new Attachment(fileName, file.getContentType(), file.getBytes());
+    @Override
+    public Attachment saveDl(NewDlModel newDlModel) throws Exception {
+        try{
+            Attachment attachment = new Attachment();
+            attachment.setDlNo(newDlModel.getDlNo());
+            attachment.setHolderName(newDlModel.getHolder());
+            attachment.setData(newDlModel.getData());
+
             return attachmentRepository.save(attachment);
+
         }
-        catch (Exception e){
-//            throw new Exception("Could not save File: "+fileName);
+        catch(Exception e){
             throw e;
         }
-    }
 
-    @Override
-    public Attachment getAttachment(String fileId) throws Exception {
-        return attachmentRepository.findById(fileId).orElseThrow(()->new Exception("File not found with ID: "+ fileId));
     }
 }
