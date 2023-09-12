@@ -15,5 +15,8 @@ public class NewDlModel {
 
     private byte[] data;
 
-
+    public NewDlModel(String dlNo, String holder) {
+        this.dlNo = dlNo;
+        this.holder = holder;
+    }
 }

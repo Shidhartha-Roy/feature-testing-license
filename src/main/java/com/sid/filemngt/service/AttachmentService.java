@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface AttachmentService {
 
-//    Attachment getAttachment(String fileId) throws Exception;
+    Attachment getAttachment(String dlNo) throws Exception;
 
     Attachment saveDl(NewDlModel newDlModel) throws Exception;
 }

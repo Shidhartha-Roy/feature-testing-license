@@ -16,10 +16,10 @@ public class AttachmentServiceImpl implements AttachmentService{
         this.attachmentRepository = attachmentRepository;
     }
 
-//    @Override
-//    public Attachment getAttachment(String fileId) throws Exception {
-//        return attachmentRepository.findById(fileId).orElseThrow(()->new Exception("File not found with ID: "+ fileId));
-//    }
+    @Override
+    public Attachment getAttachment(String dlNo) throws Exception {
+        return attachmentRepository.findById(dlNo).orElseThrow(()->new Exception("No Matching Driving License: "+ dlNo));
+    }
 
     @Override
     public Attachment saveDl(NewDlModel newDlModel) throws Exception {

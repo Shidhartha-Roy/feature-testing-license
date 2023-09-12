@@ -45,13 +45,15 @@ public class AttachmentController {
 
 
 
-//    @GetMapping("/download/{fileId}")
-//    public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) throws Exception {
-//        Attachment attachment = null;
-//        attachment = attachmentService.getAttachment(fileId);
-//        return ResponseEntity.ok().contentType(MediaType.parseMediaType(attachment.getFileType()))
-//                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + attachment.getFileName()+"\"")
-//                .body(new ByteArrayResource(attachment.getData()));
-//
-//    }
+    @GetMapping("/download/{dlNo}")
+    public ResponseEntity<NewDlModel> downloadFile(@PathVariable String dlNo) throws Exception {
+        Attachment attachment = attachmentService.getAttachment(dlNo);
+
+        NewDlModel newDlModel = new NewDlModel(attachment.getDlNo(), attachment.getHolderName());
+        newDlModel.setDlNo(attachment.getDlNo());
+        newDlModel.setHolder(attachment.getHolderName());
+
+        return ResponseEntity.ok().body(newDlModel);
+
+    }
 }
